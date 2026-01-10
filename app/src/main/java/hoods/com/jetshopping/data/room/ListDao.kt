@@ -24,11 +24,11 @@ interface ListDao {
 
     @Transaction
     @Query("SELECT * FROM items WHERE list_id = :listId")
-    fun getItemsWithStoreAndListFilteredById(listId: Int): Flow<List<ItemsWithStoreAndList>>
+    fun getItemsWithStoreAndListFilteredByListId(listId: Int): Flow<List<ItemsWithStoreAndList>>
 
     @Transaction
     @Query("SELECT * FROM items WHERE item_id = :itemId")
-    fun getItemWithStoreAndListFilteredById(itemId: Int): Flow<ItemsWithStoreAndList>
+    fun getItemsWithStoreAndListFilteredByItemId(itemId: Int): Flow<ItemsWithStoreAndList>
 
 }
 

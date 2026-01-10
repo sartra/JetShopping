@@ -13,10 +13,10 @@ import kotlinx.coroutines.flow.Flow
 interface ShoppingRepository {
     val stores: Flow<List<Store>>
     val items: Flow<List<Item>>
-    val itemsWithStoreAndList: Flow<List<ItemsWithStoreAndList>>
+    val getItemsWithStoreAndList: Flow<List<ItemsWithStoreAndList>>
 
-    fun itemsWithStoreAndListByListId(listId: Int): Flow<List<ItemsWithStoreAndList>>
-    fun itemWithStoreAndListByItemId(itemId: Int): Flow<ItemsWithStoreAndList?>
+    fun getItemsWithStoreAndListByListId(listId: Int): Flow<List<ItemsWithStoreAndList>>
+    fun getItemsWithStoreAndListByItemId(itemId: Int): Flow<ItemsWithStoreAndList?>
 
     suspend fun insertList(list: ShoppingList)
     suspend fun insertItem(item: Item)
@@ -31,13 +31,13 @@ class ShoppingRepositoryImpl @Inject constructor(
 ) : ShoppingRepository {
     override val stores = storeDao.getAllStores()
     override val items = itemDao.getAllItems()
-    override val itemsWithStoreAndList = listDao.getItemsWithStoreAndList()
+    override val getItemsWithStoreAndList = listDao.getItemsWithStoreAndList()
 
-    override fun itemsWithStoreAndListByListId(listId: Int) =
-        listDao.getItemsWithStoreAndListFilteredById(listId)
+    override fun getItemsWithStoreAndListByListId(listId: Int) =
+        listDao.getItemsWithStoreAndListFilteredByListId(listId)
 
-    override fun itemWithStoreAndListByItemId(itemId: Int) =
-        listDao.getItemWithStoreAndListFilteredById(itemId)
+    override fun getItemsWithStoreAndListByItemId(itemId: Int) =
+        listDao.getItemsWithStoreAndListFilteredByItemId(itemId)
 
     override suspend fun insertList(list: ShoppingList) = listDao.insertList(list)
     override suspend fun insertItem(item: Item) = itemDao.insertItem(item)

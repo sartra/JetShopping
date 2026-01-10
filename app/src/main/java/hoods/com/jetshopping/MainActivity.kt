@@ -11,6 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import dagger.hilt.android.AndroidEntryPoint
+import hoods.com.jetshopping.ui.home.HomeScreen
+import hoods.com.jetshopping.ui.home.HomeState
 import hoods.com.jetshopping.ui.theme.JetShoppingTheme
 
 @AndroidEntryPoint
@@ -18,11 +20,11 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            JetShoppingTheme {
+            JetShoppingTheme(darkTheme = true) {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background) {
-
+                    HomeScreen(onNavigate = {})
                 }
             }
         }

@@ -1,7 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
+    id("com.google.dagger.hilt.android")
+    id("org.jetbrains.kotlin.plugin.compose")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -38,9 +40,6 @@ android {
     buildFeatures {
         compose true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion '1.5.8'
-    }
     packaging {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
@@ -68,7 +67,19 @@ dependencies {
     def room_version = "2.6.1"
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
+    ksp "androidx.room:room-compiler:$room_version"
     testImplementation "androidx.room:room-testing:$room_version"
     androidTestImplementation "androidx.room:room-testing:$room_version"
+
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+
+    // Hilt
+    implementation 'com.google.dagger:hilt-android:2.57.2'
+    ksp 'com.google.dagger:hilt-compiler:2.57.2'
+    // For instrumentation tests
+    androidTestImplementation  'com.google.dagger:hilt-android-testing:2.57.2'
+    kspAndroidTest 'com.google.dagger:hilt-compiler:2.57.2'
+    // For local unit tests
+    testImplementation 'com.google.dagger:hilt-android-testing:2.57.2'
+    kspTest 'com.google.dagger:hilt-compiler:2.57.2'
 }
